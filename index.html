@@ -1,1 +1,234 @@
-Hello!!! This is Sso Fun Games!!!
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SSOFUN GAMES | 게임 포트폴리오</title>
+  <style>
+    /* Reset & CSS Variables */
+    :root {
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --accent: #6366f1;
+      --accent-hover: #4f46e5;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #334155;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    /* Layout */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Header */
+    header {
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: -0.025em;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-left: 1.5rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-main);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 5rem 0 3rem;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 2.75rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #f8fafc 0%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      font-size: 1.125rem;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    /* Games Grid */
+    .section-title {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      border-left: 4px solid var(--accent);
+      padding-left: 0.75rem;
+    }
+
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 5rem;
+    }
+
+    .game-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 0.75rem;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .game-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    }
+
+    .game-thumb {
+      width: 100%;
+      height: 180px;
+      background: #334155;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+    }
+
+    .game-info {
+      padding: 1.25rem;
+    }
+
+    .game-info h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .game-info p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: var(--accent);
+      color: white;
+      text-decoration: none;
+      border-radius: 0.375rem;
+      font-weight: 600;
+      font-size: 0.875rem;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      background: var(--accent-hover);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-color);
+      padding: 2rem 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav-container">
+      <a href="#" class="logo">SSOFUN GAMES</a>
+      <nav class="nav-links">
+        <a href="#games">Games</a>
+        <a href="#about">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Fun & Creative Web Games</h1>
+      <p>웹 브라우저에서 바로 플레이할 수 있는 프로젝트와 게임 포트폴리오 공간입니다.</p>
+    </section>
+
+    <section id="games">
+      <h2 class="section-title">Games & Projects</h2>
+      <div class="games-grid">
+        
+        <!-- 게임 카드 1 -->
+        <article class="game-card">
+          <div class="game-thumb">Game Image / Thumbnail</div>
+          <div class="game-info">
+            <h3>프로젝트 이름 1</h3>
+            <p>게임에 대한 간단한 설명과 주요 특징을 적는 공간입니다.</p>
+            <a href="#" class="btn">Play Game</a>
+          </div>
+        </article>
+
+        <!-- 게임 카드 2 -->
+        <article class="game-card">
+          <div class="game-thumb">Game Image / Thumbnail</div>
+          <div class="game-info">
+            <h3>프로젝트 이름 2</h3>
+            <p>Unity WebGL 또는 HTML5 게임에 대한 설명을 입력하세요.</p>
+            <a href="#" class="btn">Play Game</a>
+          </div>
+        </article>
+
+        <!-- 게임 카드 3 -->
+        <article class="game-card">
+          <div class="game-thumb">Game Image / Thumbnail</div>
+          <div class="game-info">
+            <h3>프로젝트 이름 3</h3>
+            <p>프로젝트 개요 및 사용된 기술 스택 정보입니다.</p>
+            <a href="#" class="btn">Play Game</a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 SSOFUN GAMES. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
