@@ -198,6 +198,78 @@
     .btn:hover {
       background: var(--accent-hover);
     }
+    .about-card,
+    .contact-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 1rem;
+      padding: 1.75rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      margin-bottom: 2rem;
+    }
+
+    .skills-container {
+      margin-top: 1.25rem;
+    }
+
+    .skill-title {
+      display: block;
+      margin-bottom: 0.75rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .skill-tag {
+      background: rgba(99,102,241,.12);
+      color: var(--accent);
+      padding: 0.5rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+    }
+
+    .contact-links {
+      display: grid;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem;
+      border: 1px solid var(--border-color);
+      border-radius: 0.9rem;
+      background: var(--bg-color);
+      color: var(--text-main);
+      text-decoration: none;
+    }
+
+    .contact-item:hover {
+      border-color: var(--accent);
+    }
+
+    @media (max-width: 720px) {
+      .nav-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+
+      .games-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 3.5rem;
+      }
+    }
 
     /* About & Contact Section CSS (추가됨) */
     .about-section, .contact-section {
@@ -277,7 +349,13 @@
     .contact-icon {
       font-size: 1.1rem;
     }
-
+    
+    .game-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
     /* Footer */
     footer {
       border-top: 1px solid var(--border-color);
@@ -311,6 +389,8 @@
   <main class="container">
     <section class="hero">
       <h1>Fun & Creative Games</h1>
+      <p>다양한 게임과 인터랙티브 프로젝트를 소개합니다.</p>
+      <a href="#games" class="btn hero-btn">게임 둘러보기</a>
     </section>
 
     <section id="games">
@@ -319,30 +399,36 @@
         
         <!-- 게임 카드 1 -->
         <article class="game-card">
-          <div class="game-thumb">Game Image / Thumbnail</div>
+          <div class="game-thumb">
+            <img src="https://via.placeholder.com/600x320?text=Game+1" alt="프로젝트 이름 1 썸네일" />
+          </div>
           <div class="game-info">
             <h3>프로젝트 이름 1</h3>
-            <p>게임에 대한 간단한 설명과 주요 특징을 적는 공간입니다.</p>
+            <p>게임 설명<</p>
             <a href="#" class="btn">Play Game</a>
           </div>
         </article>
 
         <!-- 게임 카드 2 -->
         <article class="game-card">
-          <div class="game-thumb">Game Image / Thumbnail</div>
+          <div class="game-thumb">
+            <img src="https://via.placeholder.com/600x320?text=Game+2" alt="프로젝트 이름 2 썸네일" />
+          </div>
           <div class="game-info">
             <h3>프로젝트 이름 2</h3>
-            <p>Unity WebGL 또는 HTML5 게임에 대한 설명을 입력하세요.</p>
+            <p>게임 설명</p>
             <a href="#" class="btn">Play Game</a>
           </div>
         </article>
 
         <!-- 게임 카드 3 -->
         <article class="game-card">
-          <div class="game-thumb">Game Image / Thumbnail</div>
+          <div class="game-thumb">
+            <img src="https://via.placeholder.com/600x320?text=Game+3" alt="프로젝트 이름 3 썸네일" />
+          </div>
           <div class="game-info">
             <h3>프로젝트 이름 3</h3>
-            <p>프로젝트 개요 및 사용된 기술 스택 정보입니다.</p>
+            <p>게임 설명<</p>
             <a href="#" class="btn">Play Game</a>
           </div>
         </article>
