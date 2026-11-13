@@ -4,6 +4,30 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SSOFUN GAMES</title>
+
+  <!-- SEO / 공유 미리보기 -->
+  <meta name="description" content="SSOFUN GAMES - 다양한 게임과 인터랙티브 프로젝트를 소개합니다." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="SSOFUN GAMES" />
+  <meta property="og:title" content="SSOFUN GAMES" />
+  <meta property="og:description" content="다양한 게임과 인터랙티브 프로젝트를 소개합니다." />
+  <meta property="og:locale" content="ko_KR" />
+  <!-- 공유 이미지는 png/jpg 절대 주소가 필요해서 비워뒀어. 이미지 준비되면 아래 주석 해제 -->
+  <!-- <meta property="og:image" content="https://사이트주소/images/og.png" /> -->
+
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+
+  <!-- 화면 깜빡임 방지: 렌더 전에 테마 적용 -->
+  <script>
+    document.documentElement.classList.add('js');
+    try {
+      var t = localStorage.getItem('theme');
+      if (t === 'light' || (!t && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    } catch (e) {}
+  </script>
+
   <style>
     /* 1. 기본 다크 테마 변수 */
     :root {
@@ -37,11 +61,20 @@
       transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background-color: var(--bg-color);
       color: var(--text-main);
       line-height: 1.6;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
     }
 
     /* Layout */
@@ -51,10 +84,26 @@
       padding: 0 1.5rem;
     }
 
-    /* Header & Nav */
+    section[id] {
+      scroll-margin-top: 5rem; /* 고정 헤더에 가리지 않게 */
+    }
+
+    /* Header & Nav (상단 고정) */
     header {
-      padding: 1.5rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 1rem 0;
+      background: var(--bg-color);
       border-bottom: 1px solid var(--border-color);
+    }
+
+    @supports (backdrop-filter: blur(8px)) {
+      header {
+        background: color-mix(in srgb, var(--bg-color) 82%, transparent);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
     }
 
     .nav-container {
@@ -92,8 +141,9 @@
       color: var(--text-main);
     }
 
-    /* Theme Toggle Button */
-    .theme-toggle-btn {
+    /* Theme Toggle / Menu Button */
+    .theme-toggle-btn,
+    .menu-btn {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       color: var(--text-main);
@@ -107,21 +157,43 @@
       gap: 0.4rem;
     }
 
-    .theme-toggle-btn:hover {
+    .theme-toggle-btn:hover,
+    .menu-btn:hover {
       border-color: var(--accent);
+    }
+
+    .menu-btn {
+      display: none; /* 모바일에서만 표시 */
+      font-size: 1.1rem;
+      line-height: 1;
+      padding: 0.45rem 0.7rem;
     }
 
     /* Hero Section */
     .hero {
-      padding: 5rem 0 3rem;
+      margin: 2rem 0 4rem;
+      padding: 5rem 1.5rem;
       text-align: center;
+      border: 1px solid var(--border-color);
+      border-radius: 1.5rem;
+      background:
+        radial-gradient(circle at 15% 0%, rgba(99, 102, 241, 0.35), transparent 55%),
+        radial-gradient(circle at 90% 100%, rgba(236, 72, 153, 0.22), transparent 55%),
+        var(--card-bg);
     }
 
     .hero h1 {
-      font-size: 2.75rem;
+      font-size: clamp(2rem, 6vw, 2.75rem);
       font-weight: 800;
       margin-bottom: 1rem;
       color: var(--text-main);
+    }
+
+    .hero h1 .grad {
+      background: linear-gradient(90deg, #818cf8, #ec4899);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
 
     .hero p {
@@ -129,6 +201,50 @@
       font-size: 1.125rem;
       max-width: 600px;
       margin: 0 auto 2rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: var(--accent);
+      color: #ffffff;
+      text-decoration: none;
+      border: 1px solid var(--accent);
+      border-radius: 0.375rem;
+      font-weight: 600;
+      font-size: 0.875rem;
+    }
+
+    .btn:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text-main);
+      border-color: var(--border-color);
+    }
+
+    .btn-outline:hover {
+      background: transparent;
+      border-color: var(--accent);
+    }
+
+    .btn-disabled,
+    .btn-disabled:hover {
+      background: var(--thumb-bg);
+      border-color: var(--thumb-bg);
+      color: var(--text-muted);
+      cursor: not-allowed;
     }
 
     /* Games Grid */
@@ -147,19 +263,29 @@
     }
 
     .game-card {
+      position: relative; /* 카드 전체 클릭 영역 기준 */
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: 0.75rem;
       overflow: hidden;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s, background-color 0.25s ease, border-color 0.25s ease;
     }
 
     .game-card:hover {
       transform: translateY(-4px);
       box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+      border-color: var(--accent);
+    }
+
+    /* 버튼 링크를 카드 전체로 확장 → 카드 어디를 눌러도 이동 */
+    .game-card a.btn::after {
+      content: "";
+      position: absolute;
+      inset: 0;
     }
 
     .game-thumb {
+      position: relative;
       width: 100%;
       height: 180px;
       background: var(--thumb-bg);
@@ -167,6 +293,27 @@
       align-items: center;
       justify-content: center;
       color: var(--text-muted);
+    }
+
+    .game-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .badge {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #ffffff;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
     }
 
     .game-info {
@@ -178,116 +325,91 @@
       margin-bottom: 0.5rem;
     }
 
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .tag {
+      background: rgba(99, 102, 241, 0.12);
+      color: var(--accent);
+      padding: 0.15rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
     .game-info p {
       color: var(--text-muted);
       font-size: 0.9rem;
       margin-bottom: 1rem;
     }
 
-    .btn {
-      display: inline-block;
-      padding: 0.5rem 1rem;
-      background: var(--accent);
-      color: #ffffff;
-      text-decoration: none;
-      border-radius: 0.375rem;
-      font-weight: 600;
-      font-size: 0.875rem;
+    /* About & Contact */
+    .about-section,
+    .contact-section {
+      margin-bottom: 5rem;
     }
 
-    .btn:hover {
-      background: var(--accent-hover);
-    }
     .about-card,
     .contact-card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: 1rem;
-      padding: 1.75rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-      margin-bottom: 2rem;
-    }
-
-    .skills-container {
-      margin-top: 1.25rem;
-    }
-
-    .skill-title {
-      display: block;
-      margin-bottom: 0.75rem;
-      font-weight: 700;
-      color: var(--text-main);
-    }
-
-    .skills-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-
-    .skill-tag {
-      background: rgba(99,102,241,.12);
-      color: var(--accent);
-      padding: 0.5rem 0.75rem;
-      border-radius: 999px;
-      font-size: 0.85rem;
-    }
-
-    .contact-links {
-      display: grid;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-
-    .contact-item {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 1rem;
-      border: 1px solid var(--border-color);
-      border-radius: 0.9rem;
-      background: var(--bg-color);
-      color: var(--text-main);
-      text-decoration: none;
-    }
-
-    .contact-item:hover {
-      border-color: var(--accent);
-    }
-
-    @media (max-width: 720px) {
-      .nav-container {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-      }
-
-      .games-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero {
-        padding-top: 3.5rem;
-      }
-    }
-
-    /* About & Contact Section CSS (추가됨) */
-    .about-section, .contact-section {
-      margin-bottom: 5rem;
-    }
-
-    .about-card, .contact-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 0.75rem;
       padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     }
 
-    .about-card p, .contact-card p {
+    .about-card p,
+    .contact-card p {
       color: var(--text-muted);
       font-size: 1rem;
       line-height: 1.7;
-      margin-bottom: 1rem;
+    }
+
+    .about-top {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .avatar {
+      flex: none;
+      width: 104px;
+      height: 104px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--accent);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .stat {
+      text-align: center;
+      padding: 1rem 0.5rem;
+      background: var(--bg-color);
+      border: 1px solid var(--border-color);
+      border-radius: 0.75rem;
+    }
+
+    .stat-num {
+      display: block;
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1.2;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
     }
 
     .skills-container {
@@ -339,6 +461,7 @@
       text-decoration: none;
       font-weight: 600;
       font-size: 0.9rem;
+      transition: transform 0.2s, background-color 0.25s ease, border-color 0.25s ease;
     }
 
     .contact-item:hover {
@@ -349,13 +472,7 @@
     .contact-icon {
       font-size: 1.1rem;
     }
-    
-    .game-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
+
     /* Footer */
     footer {
       border-top: 1px solid var(--border-color);
@@ -364,6 +481,75 @@
       color: var(--text-muted);
       font-size: 0.875rem;
     }
+
+    /* 스크롤 등장 효과 (JS 켜진 경우에만) */
+    html.js .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    html.js .reveal.is-visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      html.js .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
+
+    /* Mobile */
+    @media (max-width: 720px) {
+      .menu-btn {
+        display: flex;
+      }
+
+      .nav-right {
+        gap: 0.75rem;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        gap: 0;
+        padding: 0.5rem 1.5rem 1rem;
+        background: var(--bg-color);
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links a {
+        padding: 0.75rem 0;
+      }
+
+      .games-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 3.5rem 1.25rem;
+      }
+
+      .about-top {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
   </style>
 </head>
 <body>
@@ -371,9 +557,8 @@
   <header>
     <div class="container nav-container">
       <a href="#" class="logo">SSOFUN GAMES</a>
-      <!-- nav-right 감싸기 추가 -->
       <div class="nav-right">
-        <nav class="nav-links">
+        <nav id="nav-links" class="nav-links">
           <a href="#games">Games</a>
           <a href="#about">About</a>
           <a href="#contact">Contact Us</a>
@@ -382,29 +567,37 @@
           <span id="theme-icon">🌙</span>
           <span id="theme-text">다크</span>
         </button>
+        <button id="menu-toggle" class="menu-btn" aria-label="메뉴 열기" aria-expanded="false" aria-controls="nav-links">☰</button>
       </div>
     </div>
   </header>
 
   <main class="container">
-    <section class="hero">
-      <h1>Fun & Creative Games</h1>
+    <section class="hero reveal">
+      <h1>Fun &amp; <span class="grad">Creative</span> Games</h1>
       <p>다양한 게임과 인터랙티브 프로젝트를 소개합니다.</p>
-      <a href="#games" class="btn hero-btn">게임 둘러보기</a>
+      <div class="hero-actions">
+        <a href="#games" class="btn">게임 둘러보기</a>
+        <a href="#contact" class="btn btn-outline">문의하기</a>
+      </div>
     </section>
 
-    <section id="games">
-      <h2 class="section-title">Games & Projects</h2>
+    <section id="games" class="reveal">
+      <h2 class="section-title">Games &amp; Projects</h2>
       <div class="games-grid">
-        
-        <!-- 게임 카드 1 -->
+
+        <!-- 게임 카드 1 (href="#" 를 실제 플레이/상세 주소로 바꿔줘) -->
         <article class="game-card">
           <div class="game-thumb">
-            <img src="https://via.placeholder.com/600x320?text=Game+1" alt="프로젝트 이름 1 썸네일" />
+            <img src="images/game1.svg" width="600" height="320" loading="lazy" alt="프로젝트 이름 1 썸네일" />
           </div>
           <div class="game-info">
             <h3>프로젝트 이름 1</h3>
-            <p>게임 설명<</p>
+            <div class="tag-list">
+              <span class="tag">Unity</span>
+              <span class="tag">Mobile</span>
+            </div>
+            <p>게임 설명</p>
             <a href="#" class="btn">Play Game</a>
           </div>
         </article>
@@ -412,35 +605,54 @@
         <!-- 게임 카드 2 -->
         <article class="game-card">
           <div class="game-thumb">
-            <img src="https://via.placeholder.com/600x320?text=Game+2" alt="프로젝트 이름 2 썸네일" />
+            <img src="images/game2.svg" width="600" height="320" loading="lazy" alt="프로젝트 이름 2 썸네일" />
           </div>
           <div class="game-info">
             <h3>프로젝트 이름 2</h3>
+            <div class="tag-list">
+              <span class="tag">Unreal</span>
+              <span class="tag">PC</span>
+            </div>
             <p>게임 설명</p>
             <a href="#" class="btn">Play Game</a>
           </div>
         </article>
 
-        <!-- 게임 카드 3 -->
+        <!-- 게임 카드 3 (출시 전 예시: 뱃지 + 비활성 버튼) -->
         <article class="game-card">
           <div class="game-thumb">
-            <img src="https://via.placeholder.com/600x320?text=Game+3" alt="프로젝트 이름 3 썸네일" />
+            <img src="images/game3.svg" width="600" height="320" loading="lazy" alt="프로젝트 이름 3 썸네일" />
+            <span class="badge">Coming Soon</span>
           </div>
           <div class="game-info">
             <h3>프로젝트 이름 3</h3>
-            <p>게임 설명<</p>
-            <a href="#" class="btn">Play Game</a>
+            <div class="tag-list">
+              <span class="tag">Unity</span>
+              <span class="tag">VR/AR</span>
+            </div>
+            <p>게임 설명</p>
+            <span class="btn btn-disabled" aria-disabled="true">Coming Soon</span>
           </div>
         </article>
 
       </div>
     </section>
 
-    <section id="about" class="about-section">
+    <section id="about" class="about-section reveal">
       <h2 class="section-title">About</h2>
       <div class="about-card">
-        <p>플레이어에게 몰입감 있는 경험을 제공하는 시스템 개발을 축으로 Unity, Unreal, 웹, App 기술을 활용해 다양한 프로젝트를 시도해 왔습니다.</p>
-        
+        <div class="about-top">
+          <img class="avatar" src="images/profile.svg" width="104" height="104" loading="lazy" alt="프로필 이미지" />
+          <p>플레이어에게 몰입감 있는 경험을 제공하는 시스템 개발을 축으로 Unity, Unreal, 웹, App 기술을 활용해 다양한 프로젝트를 시도해 왔습니다.</p>
+        </div>
+
+        <!-- 숫자는 예시야. 실제 값으로 바꿔서 써 -->
+        <div class="stats">
+          <div class="stat"><span class="stat-num">3</span><span class="stat-label">Projects</span></div>
+          <div class="stat"><span class="stat-num">2</span><span class="stat-label">Game Engines</span></div>
+          <div class="stat"><span class="stat-num">5</span><span class="stat-label">Focus Areas</span></div>
+        </div>
+
         <div class="skills-container">
           <span class="skill-title">Tech Stack:</span>
           <div class="skills-list">
@@ -453,8 +665,8 @@
         </div>
       </div>
     </section>
-    
-    <section id="contact" class="contact-section">
+
+    <section id="contact" class="contact-section reveal">
       <h2 class="section-title">Contact Us</h2>
       <div class="contact-card">
         <p>프로젝트 협업, 피드백, 기타 문의 사항이 있으시면 아래 링크를 통해 편하게 연락주세요.</p>
@@ -463,14 +675,24 @@
             <span class="contact-icon">✉️</span>
             <span>이메일 보내기</span>
           </a>
-          <!-- <a href="https://github.com/leesso" target="_blank" rel="noopener noreferrer" class="contact-item">
+          <a href="https://github.com/leesso" target="_blank" rel="noopener noreferrer" class="contact-item">
             <span class="contact-icon">🐙</span>
             <span>GitHub 프로필</span>
-          </a> -->
+          </a>
+          <!-- 필요하면 주소만 바꿔서 주석 해제
+          <a href="https://유튜브주소" target="_blank" rel="noopener noreferrer" class="contact-item">
+            <span class="contact-icon">▶️</span>
+            <span>YouTube</span>
+          </a>
+          <a href="https://아이디.itch.io" target="_blank" rel="noopener noreferrer" class="contact-item">
+            <span class="contact-icon">🎮</span>
+            <span>itch.io</span>
+          </a>
+          -->
         </div>
       </div>
     </section>
-    
+
   </main>
 
   <footer>
@@ -479,46 +701,65 @@
     </div>
   </footer>
 
-  <!-- JavaScript: 테마 제어 로직 -->
   <script>
+    // ===== 테마 =====
     const themeToggleBtn = document.getElementById('theme-toggle');
     const themeIcon = document.getElementById('theme-icon');
     const themeText = document.getElementById('theme-text');
+    const root = document.documentElement;
 
-    // 1. 초기 테마 설정 (저장된 설정 확인 -> OS 설정 확인 -> 기본값 dark)
-    const savedTheme = localStorage.getItem('theme');
-    const systemPrefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-
-    if (savedTheme === 'light' || (!savedTheme && systemPrefersLight)) {
-      setTheme('light');
-    } else {
-      setTheme('dark');
+    function renderThemeButton() {
+      const isLight = root.getAttribute('data-theme') === 'light';
+      themeIcon.textContent = isLight ? '☀️' : '🌙';
+      themeText.textContent = isLight ? '라이트' : '다크';
     }
 
-    // 2. 테마 적용 함수
     function setTheme(theme) {
       if (theme === 'light') {
-        document.documentElement.setAttribute('data-theme', 'light');
-        themeIcon.textContent = '☀️';
-        themeText.textContent = '라이트';
-        localStorage.setItem('theme', 'light');
+        root.setAttribute('data-theme', 'light');
       } else {
-        document.documentElement.removeAttribute('data-theme');
-        themeIcon.textContent = '🌙';
-        themeText.textContent = '다크';
-        localStorage.setItem('theme', 'dark');
+        root.removeAttribute('data-theme');
       }
+      try { localStorage.setItem('theme', theme); } catch (e) {}
+      renderThemeButton();
     }
 
-    // 3. 버튼 클릭시 테마 토글
+    renderThemeButton(); // 초기 테마는 <head> 스크립트에서 이미 적용됨
+
     themeToggleBtn.addEventListener('click', () => {
-      const currentTheme = document.documentElement.getAttribute('data-theme');
-      if (currentTheme === 'light') {
-        setTheme('dark');
-      } else {
-        setTheme('light');
-      }
+      setTheme(root.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
     });
+
+    // ===== 모바일 메뉴 =====
+    const menuBtn = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    function setMenu(open) {
+      navLinks.classList.toggle('open', open);
+      menuBtn.setAttribute('aria-expanded', String(open));
+      menuBtn.setAttribute('aria-label', open ? '메뉴 닫기' : '메뉴 열기');
+      menuBtn.textContent = open ? '✕' : '☰';
+    }
+
+    menuBtn.addEventListener('click', () => setMenu(!navLinks.classList.contains('open')));
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+
+    // ===== 스크롤 등장 효과 =====
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      revealEls.forEach(el => io.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('is-visible'));
+    }
   </script>
 
 </body>
